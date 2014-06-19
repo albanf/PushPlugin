@@ -1,19 +1,23 @@
 package com.visma.vmm.gcm;
 
+import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 
 import java.util.LinkedList;
-import java.util.List;
+import java.util.Queue;
 
+@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class GCMIntentService extends com.plugin.gcm.GCMIntentService {
 
-    private static List<String> notifications = new LinkedList<String>();
+    private static Queue<String> notifications = new LinkedList<String>();
+    private static int additionalNotifications = 0;
 
     @Override
     public void createNotification(Context context, Bundle extras) {
@@ -29,6 +33,10 @@ public class GCMIntentService extends com.plugin.gcm.GCMIntentService {
 
         String message = extras.getString("message");
         notifications.add(message);
+        if (notifications.size() > 5) {
+            additionalNotifications++;
+            notifications.remove();
+        }
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
@@ -39,26 +47,24 @@ public class GCMIntentService extends com.plugin.gcm.GCMIntentService {
                         .setContentIntent(contentIntent)
                         .setDeleteIntent(getDeleteIntent());
 
-//        if (message != null) {
-//            mBuilder.setContentText(message);
-//        } else {
-//            mBuilder.setContentText("<missing message content>");
-//        }
-//
         NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
 
-        if (notifications.size() > 1) {
-            mBuilder.setContentTitle(notifications.size() + " new tasks");
-            inboxStyle.setBigContentTitle(notifications.size() + " new tasks");
+        if (notifications.size() + additionalNotifications > 1) {
+            mBuilder.setContentTitle((notifications.size() + additionalNotifications) + " new tasks");
+            inboxStyle.setBigContentTitle((notifications.size() + additionalNotifications) + " new tasks");
 
             for (String notification : notifications) {
                 inboxStyle.addLine(notification);
             }
-            inboxStyle.setSummaryText("Summary bla bla bla");
+            if (additionalNotifications > 0) {
+                inboxStyle.setSummaryText("+ " + additionalNotifications + " more");
+            } else {
+                inboxStyle.setSummaryText("Summary bla bla bla");
+            }
             mBuilder.setContentText("Expand to see new messages");
             mBuilder.setStyle(inboxStyle);
         } else {
-            mBuilder.setContentTitle(notifications.size() + " new task");
+            mBuilder.setContentTitle((notifications.size() + additionalNotifications) + " new task");
             mBuilder.setContentText(message);
         }
 
@@ -84,6 +90,7 @@ public class GCMIntentService extends com.plugin.gcm.GCMIntentService {
 
     public static void clearNotifications() {
         notifications.clear();
+        additionalNotifications = 0;
     }
 
     // Private is base class
