@@ -41,7 +41,7 @@ public class GCMIntentService extends com.plugin.gcm.GCMIntentService {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
                         .setDefaults(Notification.DEFAULT_ALL)
-                        .setSmallIcon(context.getApplicationInfo().icon)
+                        .setSmallIcon((int) getResources().getIdentifier("ic_stat_notify", "drawable", getPackageName()))
                         .setWhen(System.currentTimeMillis())
                         .setTicker(extras.getString("title"))
                         .setContentIntent(contentIntent)
