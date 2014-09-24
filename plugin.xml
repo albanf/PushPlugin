@@ -71,6 +71,8 @@
 		<source-file src="src/android/com/visma/vmm/gcm/PushHandlerActivity.java" target-dir="src/com/visma/vmm/gcm/" />
 		<source-file src="src/android/com/visma/vmm/gcm/CordovaGCMBroadcastReceiver.java" target-dir="src/com/visma/vmm/gcm/" />
 		<source-file src="src/android/com/plugin/android-support-v13.jar" target-dir="libs/" />
+		<source-file src="src/android/res/pushplugin.xml" target-dir="res/values/pushplugin.xml" />
+		<source-file src="src/android/res/nb/pushplugin.xml" target-dir="res/values-nb/pushplugin.xml" />
 
 	</platform>
 

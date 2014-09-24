@@ -50,21 +50,21 @@ public class GCMIntentService extends com.plugin.gcm.GCMIntentService {
         NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
 
         if (notifications.size() + additionalNotifications > 1) {
-            mBuilder.setContentTitle((notifications.size() + additionalNotifications) + " new tasks");
-            inboxStyle.setBigContentTitle((notifications.size() + additionalNotifications) + " new tasks");
+            mBuilder.setContentTitle(Integer.toString((notifications.size() + additionalNotifications)) + " " + getResources().getString((int) getResources().getIdentifier("pushplugin_new_tasks", "string", getPackageName())));
+            inboxStyle.setBigContentTitle(Integer.toString((notifications.size() + additionalNotifications)) + " " + getResources().getString((int) getResources().getIdentifier("pushplugin_new_tasks", "string", getPackageName())));
 
             for (String notification : notifications) {
                 inboxStyle.addLine(notification);
             }
             if (additionalNotifications > 0) {
-                inboxStyle.setSummaryText("+ " + additionalNotifications + " more");
+                inboxStyle.setSummaryText("+ " + additionalNotifications + " " + getResources().getString((int) getResources().getIdentifier("pushplugin_more", "string", getPackageName())));
             } else {
-                inboxStyle.setSummaryText("Summary bla bla bla");
+                inboxStyle.setSummaryText("");
             }
-            mBuilder.setContentText("Expand to see new messages");
+            mBuilder.setContentText("");
             mBuilder.setStyle(inboxStyle);
         } else {
-            mBuilder.setContentTitle((notifications.size() + additionalNotifications) + " new task");
+            mBuilder.setContentTitle(extras.getString("title"));
             mBuilder.setContentText(message);
         }
 
