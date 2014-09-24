@@ -64,7 +64,7 @@ public class GCMIntentService extends com.plugin.gcm.GCMIntentService {
             mBuilder.setContentText("");
             mBuilder.setStyle(inboxStyle);
         } else {
-            mBuilder.setContentTitle(extras.getString("title"));
+            mBuilder.setContentTitle(getResources().getString((int) getResources().getIdentifier("pushplugin_new_task", "string", getPackageName())));
             mBuilder.setContentText(message);
         }
 
