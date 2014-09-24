@@ -50,21 +50,21 @@ public class GCMIntentService extends com.plugin.gcm.GCMIntentService {
         NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
 
         if (notifications.size() + additionalNotifications > 1) {
-            mBuilder.setContentTitle(Integer.toString((notifications.size() + additionalNotifications)) + " " + getResources().getString((int) getResources().getIdentifier("pushplugin_new_tasks", "string", getPackageName())));
-            inboxStyle.setBigContentTitle(Integer.toString((notifications.size() + additionalNotifications)) + " " + getResources().getString((int) getResources().getIdentifier("pushplugin_new_tasks", "string", getPackageName())));
+            mBuilder.setContentTitle(Integer.toString((notifications.size() + additionalNotifications)) + " " + getLocalizedText("pushplugin_new_tasks"));
+            inboxStyle.setBigContentTitle(Integer.toString((notifications.size() + additionalNotifications)) + " " + getLocalizedText("pushplugin_new_tasks"));
 
             for (String notification : notifications) {
                 inboxStyle.addLine(notification);
             }
             if (additionalNotifications > 0) {
-                inboxStyle.setSummaryText("+ " + additionalNotifications + " " + getResources().getString((int) getResources().getIdentifier("pushplugin_more", "string", getPackageName())));
+                inboxStyle.setSummaryText("+ " + additionalNotifications + " " + getLocalizedText("pushplugin_more"));
             } else {
                 inboxStyle.setSummaryText("");
             }
             mBuilder.setContentText("");
             mBuilder.setStyle(inboxStyle);
         } else {
-            mBuilder.setContentTitle(getResources().getString((int) getResources().getIdentifier("pushplugin_new_task", "string", getPackageName())));
+            mBuilder.setContentTitle(getLocalizedText("pushplugin_new_task"));
             mBuilder.setContentText(message);
         }
 
@@ -74,6 +74,10 @@ public class GCMIntentService extends com.plugin.gcm.GCMIntentService {
         mBuilder.setNumber(Integer.parseInt(msgcnt));
 
         mNotificationManager.notify((String) appName, NOTIFICATION_ID, mBuilder.build());
+    }
+
+    private String getLocalizedText(String identifier) {
+        return getResources().getString((int) getResources().getIdentifier(identifier, "string", getPackageName()));
     }
 
     protected PendingIntent getDeleteIntent() {
