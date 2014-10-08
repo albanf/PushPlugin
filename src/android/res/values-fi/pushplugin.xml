@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pushplugin_new_task">Uusi tehtävä</string>
+    <string name="pushplugin_new_tasks">uutta tehtävää</string>
+    <string name="pushplugin_more">lisää</string>
+</resources>

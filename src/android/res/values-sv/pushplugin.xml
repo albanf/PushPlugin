@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="pushplugin_new_task">Nytt ärende</string>
+    <string name="pushplugin_new_tasks">nya ärenden</string>
+    <string name="pushplugin_more">till</string>
+</resources>
