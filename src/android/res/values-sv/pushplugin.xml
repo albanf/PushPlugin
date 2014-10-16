@@ -2,5 +2,5 @@
 <resources>
     <string name="pushplugin_new_task">Nytt ärende</string>
     <string name="pushplugin_new_tasks">nya ärenden</string>
-    <string name="pushplugin_more">till</string>
+    <string name="pushplugin_more">fler</string>
 </resources>
