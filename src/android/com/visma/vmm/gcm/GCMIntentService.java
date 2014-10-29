@@ -19,6 +19,8 @@ public class GCMIntentService extends com.plugin.gcm.GCMIntentService {
     private static Queue<String> notifications = new LinkedList<String>();
     private static int additionalNotifications = 0;
 
+    public static final int NOTIFICATION_ID = 237;
+
     @Override
     public void createNotification(Context context, Bundle extras) {
 
